@@ -1,0 +1,25 @@
+DECLARE
+    CURSOR CUR_CUSTOMER IS
+    SELECT
+        CUSTOMERID,
+        DOB
+    FROM
+        CUSTOMERS;
+
+    V_AGE NUMBER;
+BEGIN
+    FOR REC IN CUR_CUSTOMER 
+    LOOP
+        V_AGE := TRUNC(MONTHS_BETWEEN(SYSDATE, REC.DOB)/12);
+
+        IF V_AGE > 60
+        THEN
+            UPDATE LOANS
+            SET INTERESTRATE = INTERESTRATE - 1
+            WHERE CUSTOMERID = REC.CUSTOMERID;
+        END IF;
+    END LOOP;
+
+    COMMIT;
+END;
+/
