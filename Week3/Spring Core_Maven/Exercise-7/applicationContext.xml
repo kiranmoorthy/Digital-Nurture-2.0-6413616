@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- BookRepository bean -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository" />
+
+    <!-- BookService bean with constructor and setter injection -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <!-- Constructor injection -->
+        <constructor-arg ref="bookRepository" />
+
+        <!-- Setter injection (redundant here, but for exercise purposes) -->
+        <property name="bookRepository" ref="bookRepository" />
+    </bean>
+
+</beans>
